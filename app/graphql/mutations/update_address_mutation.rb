@@ -1,12 +1,21 @@
 Mutations::UpdateAddressMutation = GraphQL::Relay::Mutation.define do
-  name "UpdateAddressMutation"
-  # TODO: define return fields
-  # return_field :post, Types::PostType
+  name 'UpdateAddress'
 
-  # TODO: define arguments
-  # input_field :name, !types.String
+  input_field :postal_code, !types.Int
+  input_field :address, !types.String
 
-  resolve ->(obj, args, ctx) {
-    # TODO: define resolve function
+  return_field :address, !Types::AddressType
+
+  resolve ->(_obj, inputs, ctx) {
+    begin
+      address = ctx[:current_user].address
+      address.postal_code = inputs.postal_code
+      address.address = inputs.address
+      address.save
+    rescue => e
+      return GraphQL::ExecutionError.new(e.message)
+    end
+
+    { address: address }
   }
 end
