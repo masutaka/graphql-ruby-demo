@@ -12,6 +12,7 @@ Types::QueryType = GraphQL::ObjectType.define do
   end
 
   field :user, !Types::UserType do
+    description 'You can access current_user'
     resolve ->(_obj, _args, ctx) {
       ctx[:current_user]
     }
