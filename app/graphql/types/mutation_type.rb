@@ -1,6 +1,7 @@
 Types::MutationType = GraphQL::ObjectType.define do
   name "Mutation"
 
+  field :updatePostMutation, Mutations::UpdatePostMutation.field
   field :createPostMutation, Mutations::CreatePostMutation.field
   field :updateAddressMutation, Mutations::UpdateAddressMutation.field
   # TODO: Remove me
