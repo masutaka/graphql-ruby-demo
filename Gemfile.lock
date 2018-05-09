@@ -197,6 +197,7 @@ GEM
 
 PLATFORMS
   ruby
+  x86_64-darwin-16
 
 DEPENDENCIES
   annotate
@@ -219,4 +220,4 @@ DEPENDENCIES
   uglifier
 
 BUNDLED WITH
-   1.16.0
+   1.16.1
