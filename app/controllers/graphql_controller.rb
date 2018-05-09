@@ -4,7 +4,7 @@ class GraphqlController < ApplicationController
     query = params[:query]
     operation_name = params[:operationName]
     context = {
-      current_user: User.last
+      current_user: Address.first.user
     }
     result = GraphqlRubyDemoSchema.execute(query, variables: variables, context: context, operation_name: operation_name)
     render json: result
