@@ -1,12 +1,18 @@
 Mutations::CreatePostMutation = GraphQL::Relay::Mutation.define do
   name "CreatePostMutation"
-  # TODO: define return fields
-  # return_field :post, Types::PostType
 
-  # TODO: define arguments
-  # input_field :name, !types.String
+  input_field :subject, !types.String
+  return_field :post, !Types::PostType
 
-  resolve ->(obj, args, ctx) {
-    # TODO: define resolve function
+  resolve ->(_obj, inputs, ctx) {
+    begin
+      post = ctx[:current_user].posts.build
+      post.subject = inputs.subject
+      post.save
+    rescue => e
+      return GraphQL::ExecutionError.new(e.message)
+    end
+
+    { post: post }
   }
 end
